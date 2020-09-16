@@ -125,6 +125,7 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
                 }
                 break;
 
+// Assignment 1
             case R.id.control_forward_bt:
 
                 ScheduledExecutorService mover = Executors.newScheduledThreadPool(1);
@@ -320,8 +321,25 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
 
                 break;
 
-            case R.id.control_go_forward_with_arg_bt:{
+                /* Look at this below for inspiration for assignment 2:
+                Ass.2= 2. Input route with the textfield.
+                Goal here: text input to a list of actions.
 
+                    Read string and parse,
+                    1. get the input= Input field with submit button
+                    2. Fetch text to a variable -> string
+                    Ex. "F100, b100, lf45"
+                    3. String to actions: split string, seperate by comma and remove spaces
+                    4. Put meaning to the letters (f=forward)
+                    (4.5- class action(function, delay, args?) -> robot.goForward)
+                    5. ["f100", "b100",..] Find the chars and numbers -
+                        5.5- pair them together
+                    ------- above is the goal for monday ------------
+                    6. List of pairs?
+                    7. for action in actions -> queue(action).
+                 */
+
+            case R.id.control_go_forward_with_arg_bt:{
                 String distanceStr = distanceEt.getText().toString();
                 int distance = 0;
                 try {
