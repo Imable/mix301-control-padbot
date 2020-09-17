@@ -12,13 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 import cn.inbot.padbotsdk.Robot;
 import cn.inbot.padbotsdk.RobotManager;
@@ -26,6 +22,7 @@ import cn.inbot.padbotsdk.constant.RobotDisconnectType;
 import cn.inbot.padbotsdk.listener.RobotConnectionListener;
 import cn.inbot.padbotsdk.listener.RobotListener;
 import cn.inbot.padbotsdk.model.ObstacleDistanceData;
+import cn.inbot.padbotsdkdemo.Schedule;
 
 public class ControlActivity extends AppCompatActivity implements RobotConnectionListener,RobotListener {
 
@@ -93,6 +90,7 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
      * @param view
      */
 
+
     public void onClick(View view) throws InterruptedException {
 
         switch (view.getId()) {
@@ -125,54 +123,10 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
                 }
                 break;
 
-            case R.id.control_forward_bt:
-
-                ScheduledExecutorService mover = Executors.newScheduledThreadPool(1);
-
-                ArrayList<Pair<Integer, Runnable>> schedule = new ArrayList<Pair<Integer, Runnable>>() {
-                    {
-                        add(
-                                new Pair<Integer, Runnable> (
-                                    1,
-                                    new Runnable() {
-                                        public void run() { robot.goForward(); }
-                                    }
-                                )
-                        );
-
-                        add(
-                                new Pair<Integer, Runnable> (
-                                        4,
-                                        new Runnable() {
-                                            public void run() { robot.goBackward(); }
-                                        }
-                                )
-                        );
-
-                        add(
-                                new Pair<Integer, Runnable> (
-                                        7,
-                                        new Runnable() {
-                                            public void run() { robot.turnLeft(); }
-                                        }
-                                )
-                        );
-                    }
-                };
-
-                final Runnable stop = new Runnable() {
-                    public void run() { robot.stop(); }
-                };
-
+            case R.id.dance_monkey:
                 if (null != robot) {
-                    for (Pair<Integer, Runnable> move : schedule) {
-                        Integer delay   = move.first;
-                        Runnable action = move.second;
-                        mover.schedule(stop, delay - 1, TimeUnit.SECONDS);
-                        mover.schedule(action, delay, TimeUnit.SECONDS);
-                    }
+                    new Schedule(robot, "f-2,b-4");
                 }
-
                 break;
 
             case R.id.control_back_bt:

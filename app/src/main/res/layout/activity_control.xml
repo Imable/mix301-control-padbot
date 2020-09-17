@@ -102,12 +102,12 @@
                 android:weightSum="4">
 
                 <Button
-                    android:id="@+id/control_forward_bt"
+                    android:id="@+id/dance_monkey"
                     android:layout_width="1dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="Forward"/>
+                    android:text="DANCE MONKEY" />
 
                 <Button
                     android:id="@+id/control_back_bt"
