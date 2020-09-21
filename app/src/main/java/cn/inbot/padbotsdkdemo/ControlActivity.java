@@ -25,13 +25,8 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
 
     private TextView nameValueTv;
     private TextView connectStatusValueTv;
-    private TextView obstacleValueTv;
-    private TextView batteryValueTv;
-    private TextView hardwareVersionTv;
-    private TextView soundSourceTv;
 
-    private EditText distanceEt;
-    private EditText angleEt;
+    private EditText routeString;
 
 
     @Override
@@ -58,12 +53,7 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
         nameValueTv = (TextView) findViewById(R.id.control_name_value_tv);
         nameValueTv.setText(serialNumber);
 
-
-        obstacleValueTv = (TextView) findViewById(R.id.control_obstacle_tv);
-        batteryValueTv = (TextView) findViewById(R.id.control_battery_tv);
-        hardwareVersionTv = (TextView) findViewById(R.id.control_hardware_version_tv);
-
-        distanceEt = (EditText) findViewById(R.id.control_move_distance_et);
+        routeString = (EditText) findViewById(R.id.submit_route_text);
     }
 
     @Override
@@ -107,6 +97,54 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
 
                 break;
 
+            case R.id.control_forward_bt:
+                if (null != robot) {
+                    robot.goForward();
+                }
+                break;
+
+            case R.id.control_back_bt:
+                if (null != robot) {
+                    robot.goBackward();
+                }
+                break;
+
+            case R.id.control_left_bt:
+                if (null != robot) {
+                    robot.turnLeft();
+                }
+                break;
+
+            case R.id.control_right_bt:
+                if (null != robot) {
+                    robot.turnRight();
+                }
+                break;
+
+            case R.id.control_left_front_bt:
+                if (null != robot) {
+                    robot.goForwardLeft(4);
+                }
+                break;
+
+            case R.id.control_right_front_bt:
+                if (null != robot) {
+                    robot.goForwardRight(4);
+                }
+                break;
+
+            case R.id.control_left_back_bt:
+                if (null != robot) {
+                    robot.goBackwardLeft(4);
+                }
+                break;
+
+            case R.id.control_right_back_bt:
+                if (null != robot) {
+                    robot.goBackwardRight(4);
+                }
+                break;
+
             case R.id.control_stop_bt:
 
                 if (null != robot) {
@@ -114,18 +152,18 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
                 }
                 break;
 
-            case R.id.dance_monkey:
+            case R.id.take_a_walk:
                 if (null != robot) {
                     new Schedule(robot, "f-2,b-4");
                 }
                 break;
 
-            case R.id.control_assignment_2: {
+            case R.id.submit_route_button: {
 
-                String actionString = distanceEt.getText().toString();
+                String route = routeString.getText().toString();
 
                 if (null != robot) {
-                    new Schedule(robot, actionString);
+                    new Schedule(robot, route);
                 }
 
                 break;
@@ -180,26 +218,18 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
     @Override
     public void onReceivedRobotObstacleDistanceData(final ObstacleDistanceData obstacleDistanceData) {
 
-        obstacleValueTv.setText("result:" + obstacleDistanceData.getFirstDistance() + ","
-                + obstacleDistanceData.getSecondDistance() + ","
-                + obstacleDistanceData.getThirdDistance() + ","
-                + obstacleDistanceData.getFourthDistance() + ","
-                + obstacleDistanceData.getFifthDistance());
     }
 
     @Override
     public void onReceivedRobotBatteryPercentage(final int batteryPercentage) {
-        batteryValueTv.setText("result:" + batteryPercentage);
     }
 
     @Override
     public void onReceivedRobotHardwareVersion(final int version) {
-        hardwareVersionTv.setText("result:" + version);
     }
 
     @Override
     public void onReceivedRobotSerialNumber(String serialNumber) {
-        nameValueTv.setText(serialNumber);
     }
 
     @Override
@@ -209,8 +239,5 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
 
     @Override
     public void onReceivedSoundSourceAngle(int angle) {
-
-        soundSourceTv.setText("" + angle);
-
     }
 }

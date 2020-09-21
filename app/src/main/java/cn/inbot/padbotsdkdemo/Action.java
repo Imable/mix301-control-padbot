@@ -38,7 +38,7 @@ public class Action {
         Runnable response;
         final Robot robot = this.robot;
 
-        switch (move) {
+        switch (move.toLowerCase()) {
             case "f":
                 response = new Runnable() {
                     public void run() { robot.goForward(); }
