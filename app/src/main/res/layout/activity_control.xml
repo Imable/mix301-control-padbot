@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
@@ -27,17 +27,17 @@
                     android:id="@+id/control_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
                     android:padding="5dp"
-                    android:text="Robot Name: "/>
+                    android:text="Robot Name: "
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/control_name_value_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
                     android:padding="5dp"
-                    android:text=""/>
+                    android:text=""
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -50,17 +50,17 @@
                     android:id="@+id/control_connect_status_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
                     android:padding="5dp"
-                    android:text="Connection Status: "/>
+                    android:text="Connection Status: "
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/control_connect_status_value_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
                     android:padding="5dp"
-                    android:text=""/>
+                    android:text=""
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -75,25 +75,161 @@
                     android:layout_width="1dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="#4CAF50"
                     android:onClick="onClick"
-                    android:text="Connect"/>
+                    android:text="Connect" />
 
                 <Button
                     android:id="@+id/control_disconnect_bt"
                     android:layout_width="1dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="#F44336"
                     android:onClick="onClick"
-                    android:text="Disconnect"/>
+                    android:text="Disconnect" />
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/control_stop_bt"
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="31dp"
+                android:layout_weight="10" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/control_left_front_bt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFEB3B"
+                        android:onClick="onClick"
+                        android:text="Left-front" />
+
+                    <Button
+                        android:id="@+id/control_forward_bt"
+                        android:layout_width="75dp"
+                        android:layout_height="74dp"
+                        android:layout_weight="1"
+                        android:background="#FFC107"
+                        android:onClick="onClick"
+                        android:text="Forward"
+                        android:textColor="#000000"
+                        android:typeface="sans" />
+
+                    <Button
+                        android:id="@+id/control_right_front_bt"
+                        android:layout_width="87dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFEB3B"
+                        android:onClick="onClick"
+                        android:text="Right-front" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/control_left_bt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#FFC107"
+                        android:onClick="onClick"
+                        android:text="Left" />
+
+                    <Button
+                        android:id="@+id/control_stop_bt"
+                        android:layout_width="108dp"
+                        android:layout_height="69dp"
+                        android:layout_weight="2"
+                        android:background="#F44336"
+                        android:onClick="onClick"
+                        android:text="  Stop  " />
+
+                    <Button
+                        android:id="@+id/control_right_bt"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#FFC107"
+                        android:onClick="onClick"
+                        android:text="Right" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/control_left_back_bt"
+                        android:layout_width="1dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFEB3B"
+                        android:onClick="onClick"
+                        android:text="Left-back" />
+
+                    <Button
+                        android:id="@+id/control_back_bt"
+                        android:layout_width="1dp"
+                        android:layout_height="67dp"
+                        android:layout_weight="1"
+                        android:background="#FFC107"
+                        android:onClick="onClick"
+                        android:text="Back" />
+
+                    <Button
+                        android:id="@+id/control_right_back_bt"
+                        android:layout_width="1dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFEB3B"
+                        android:onClick="onClick"
+                        android:text="right-back" />
+                </TableRow>
+            </TableLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Route description uses a said format with a letter or two for direction, and a number for (time)" />
+
+            <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="onClick"
-                android:text="Stop"/>
+                android:layout_weight="1"
+                android:text="F = Forward, B= Backwards, R=Right and L= Left." />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ex. f-2 to move forward for two seconds. " />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Please input with format following this example:                     F-5, R-3, LF-4, B-7" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -101,120 +237,27 @@
                 android:orientation="horizontal"
                 android:weightSum="4">
 
-                <Button
-                    android:id="@+id/control_forward_bt"
-                    android:layout_width="1dp"
+                <EditText
+                    android:id="@+id/submit_route_text"
+                    android:layout_width="235dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="Forward"/>
+                    android:layout_weight="1" />
 
                 <Button
-                    android:id="@+id/control_back_bt"
-                    android:layout_width="1dp"
+                    android:id="@+id/submit_route_button"
+                    android:layout_width="116dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="#FFC107"
                     android:onClick="onClick"
-                    android:text="Back"/>
-
-                <Button
-                    android:id="@+id/control_left_bt"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="Left"/>
-
-                <Button
-                    android:id="@+id/control_right_bt"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="Right"/>
+                    android:text="Submit Route" />
 
             </LinearLayout>
 
-            <LinearLayout
+
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="4">
-
-                <Button
-                    android:id="@+id/control_left_front_bt"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="Left-front"/>
-
-                <Button
-                    android:id="@+id/control_right_front_bt"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="Right-front"/>
-
-                <Button
-                    android:id="@+id/control_left_back_bt"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="Left-back"/>
-
-                <Button
-                    android:id="@+id/control_right_back_bt"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="right-back"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="4">
-
-                <Button
-                    android:id="@+id/control_head_rise_bt"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="Head rise"/>
-
-                <Button
-                    android:id="@+id/control_head_down_bt"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="Head down"/>
-
-                <Button
-                    android:id="@+id/control_go_charging_bt"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="Go charging"/>
-
-                <Button
-                    android:id="@+id/control_stop_charging_bt"
-                    android:layout_width="1dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="Stop charging"/>
-
-            </LinearLayout>
-
+                android:layout_height="30dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -228,7 +271,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="Obstacle detection on"/>
+                    android:text="Obstacle detection on" />
 
                 <Button
                     android:id="@+id/control_obstacle_off_bt"
@@ -236,7 +279,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="Obstacle detection off"/>
+                    android:text="Obstacle detection off" />
 
                 <Button
                     android:id="@+id/control_1st_speed_bt"
@@ -244,7 +287,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="1st gear speed"/>
+                    android:text="1st gear speed" />
 
                 <Button
                     android:id="@+id/control_3rd_speed_bt"
@@ -252,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="3rd gear speed"/>
+                    android:text="3rd gear speed" />
 
             </LinearLayout>
 
@@ -264,10 +307,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Distance:"/>
+                    android:text="Distance:" />
 
                 <EditText
-                    android:id="@+id/control_move_distance_et"
+                    android:id="@+id/control_move_distance_et2"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content" />
 
@@ -276,14 +319,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="onClick"
-                    android:text="Go forward by distance"/>
+                    android:text="Go forward by distance" />
 
                 <Button
                     android:id="@+id/control_go_backward_with_arg_bt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="onClick"
-                    android:text="Go backward by distance"/>
+                    android:text="Go backward by distance" />
 
             </LinearLayout>
 
@@ -295,7 +338,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Angle:"/>
+                    android:text="Angle:" />
 
                 <EditText
                     android:id="@+id/control_turn_angle_et"
@@ -307,14 +350,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="onClick"
-                    android:text="Turn left by angle"/>
+                    android:text="Turn left by angle" />
 
                 <Button
                     android:id="@+id/control_turn_right_with_arg_bt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="onClick"
-                    android:text="Turn right by angle"/>
+                    android:text="Turn right by angle" />
 
             </LinearLayout>
 
@@ -330,7 +373,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="Obstacle"/>
+                    android:text="Obstacle" />
 
                 <TextView
                     android:id="@+id/control_obstacle_tv"
@@ -338,9 +381,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:background="@drawable/radius_bg"
-                    android:textSize="20dp"
                     android:padding="5dp"
-                    android:text="result:"/>
+                    android:text="result:"
+                    android:textSize="20sp" />
 
 
             </LinearLayout>
@@ -357,7 +400,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="Battery"/>
+                    android:text="Battery" />
 
                 <TextView
                     android:id="@+id/control_battery_tv"
@@ -365,10 +408,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:background="@drawable/radius_bg"
-                    android:textSize="20dp"
                     android:padding="5dp"
-                    android:text="result:"/>
-
+                    android:text="result:"
+                    android:textSize="20sp" />
 
 
             </LinearLayout>
@@ -385,7 +427,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="Hardware version"/>
+                    android:text="Hardware version" />
 
                 <TextView
                     android:id="@+id/control_hardware_version_tv"
@@ -393,9 +435,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:background="@drawable/radius_bg"
-                    android:textSize="20dp"
                     android:padding="5dp"
-                    android:text="result:"/>
+                    android:text="result:"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -411,7 +453,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="Sound source"/>
+                    android:text="Sound source" />
 
                 <TextView
                     android:id="@+id/control_sound_source_tv"
@@ -419,9 +461,49 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:background="@drawable/radius_bg"
-                    android:textSize="20dp"
                     android:padding="5dp"
-                    android:text="angle:"/>
+                    android:text="angle:"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <Button
+                    android:id="@+id/control_head_rise_bt"
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="Head rise" />
+
+                <Button
+                    android:id="@+id/control_head_down_bt"
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="Head down" />
+
+                <Button
+                    android:id="@+id/control_go_charging_bt"
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="Go charging" />
+
+                <Button
+                    android:id="@+id/control_stop_charging_bt"
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="Stop charging" />
 
             </LinearLayout>
 

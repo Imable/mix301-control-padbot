@@ -12,13 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 import cn.inbot.padbotsdk.Robot;
 import cn.inbot.padbotsdk.RobotManager;
@@ -74,7 +70,7 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
         hardwareVersionTv = (TextView) findViewById(R.id.control_hardware_version_tv);
         soundSourceTv = (TextView) findViewById(R.id.control_sound_source_tv);
 
-        distanceEt = (EditText) findViewById(R.id.control_move_distance_et);
+        distanceEt = (EditText) findViewById(R.id.control_move_distance_et2);
         angleEt = (EditText) findViewById(R.id.control_turn_angle_et);
     }
 
@@ -321,14 +317,23 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
 
                 break;
 
-                /* Look at this below for inspiration for assignment 2:
+                /* ========================================================
                 Ass.2= 2. Input route with the textfield.
                 Goal here: text input to a list of actions.
+                    if (null != robot) {
+                    robot.goBackward();
+                    }
+                    if (null != robot) {
+                    robot.turnLeft();
+                    }
+                    if (null != robot) {
+                    robot.turnRight();
+                    }
 
                     Read string and parse,
                     1. get the input= Input field with submit button
                     2. Fetch text to a variable -> string
-                    Ex. "F100, b100, lf45"
+                    Ex. "F100, b100, lf45" ***
                     3. String to actions: split string, seperate by comma and remove spaces
                     4. Put meaning to the letters (f=forward)
                     (4.5- class action(function, delay, args?) -> robot.goForward)
@@ -337,7 +342,23 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
                     ------- above is the goal for monday ------------
                     6. List of pairs?
                     7. for action in actions -> queue(action).
-                 */
+
+                =============================================================== */
+
+            //If the button with this id is pressed, run this code
+            case R.id.submit_route_button:{
+                //text to variable routeString as a String
+                String routeString = distanceEt.getText().toString();
+                //Clean up string, remove whitespaces and split by commas.
+                String[] routeDescription= routeString.trim().split(",");
+                //Create pairs? Select first 1-2 characters if letters
+                //
+                //Need parseInt() to make the integer parts of the strings proper ints for values
+
+                //Put meaning to the letters (f=forward)
+
+
+            }
 
             case R.id.control_go_forward_with_arg_bt:{
                 String distanceStr = distanceEt.getText().toString();
