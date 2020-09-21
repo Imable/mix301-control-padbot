@@ -49,6 +49,16 @@ public class Action {
                     public void run() { robot.goBackward(); }
                 };
                 break;
+            case "r":
+                response = new Runnable() {
+                    public void run() { robot.turnRight(); }
+                };
+                break;
+            case "l":
+                response = new Runnable() {
+                    public void run() { robot.turnLeft(); }
+                };
+                break;
             default:
                 response = new Runnable() {
                     public void run() { robot.stop(); }

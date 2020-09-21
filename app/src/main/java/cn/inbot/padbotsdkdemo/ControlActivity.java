@@ -4,17 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import cn.inbot.padbotsdk.Robot;
 import cn.inbot.padbotsdk.RobotManager;
@@ -22,7 +16,6 @@ import cn.inbot.padbotsdk.constant.RobotDisconnectType;
 import cn.inbot.padbotsdk.listener.RobotConnectionListener;
 import cn.inbot.padbotsdk.listener.RobotListener;
 import cn.inbot.padbotsdk.model.ObstacleDistanceData;
-import cn.inbot.padbotsdkdemo.Schedule;
 
 public class ControlActivity extends AppCompatActivity implements RobotConnectionListener,RobotListener {
 
@@ -69,10 +62,8 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
         obstacleValueTv = (TextView) findViewById(R.id.control_obstacle_tv);
         batteryValueTv = (TextView) findViewById(R.id.control_battery_tv);
         hardwareVersionTv = (TextView) findViewById(R.id.control_hardware_version_tv);
-        soundSourceTv = (TextView) findViewById(R.id.control_sound_source_tv);
 
         distanceEt = (EditText) findViewById(R.id.control_move_distance_et);
-        angleEt = (EditText) findViewById(R.id.control_turn_angle_et);
     }
 
     @Override
@@ -129,228 +120,16 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
                 }
                 break;
 
-            case R.id.control_back_bt:
+            case R.id.control_assignment_2: {
+
+                String actionString = distanceEt.getText().toString();
 
                 if (null != robot) {
-                    robot.goBackward();
-                }
-
-                break;
-
-            case R.id.control_left_bt:
-
-                if (null != robot) {
-                    robot.turnLeft();
-                }
-
-                break;
-
-            case R.id.control_right_bt:
-
-                if (null != robot) {
-                    robot.turnRight();
-                }
-
-                break;
-
-            case R.id.control_left_front_bt:
-
-                if (null != robot) {
-                    robot.goForwardLeft(4);
-                }
-
-                break;
-
-            case R.id.control_right_front_bt:
-
-                if (null != robot) {
-                    robot.goForwardRight(4);
-                }
-
-                break;
-
-            case R.id.control_left_back_bt:
-
-                if (null != robot) {
-                    robot.goBackwardLeft(4);
-                }
-
-                break;
-
-            case R.id.control_right_back_bt:
-
-                if (null != robot) {
-                    robot.goBackwardRight(4);
-                }
-
-                break;
-
-            case R.id.control_head_rise_bt:
-
-                if (null != robot) {
-                    robot.headRise();
-                }
-
-                break;
-
-            case R.id.control_head_down_bt:
-
-                if (null != robot) {
-                    robot.headDown();
-                }
-
-                break;
-
-            case R.id.control_go_charging_bt:
-
-                if (null != robot) {
-                    robot.goCharging();
-                }
-
-                break;
-
-            case R.id.control_stop_charging_bt:
-
-                if (null != robot) {
-                    robot.stopCharging();
-                }
-
-                break;
-
-
-            case R.id.control_obstacle_on_bt:
-
-                if (null != robot) {
-                    robot.turnOnObstacleDetection();
-                }
-
-                break;
-
-            case R.id.control_obstacle_off_bt:
-
-                if (null != robot) {
-                    robot.turnOffObstacleDetection();
-                }
-
-                break;
-
-            case R.id.control_1st_speed_bt:
-
-                if (null != robot) {
-                    robot.setMovementSpeed(1);
-                }
-
-                break;
-
-            case R.id.control_3rd_speed_bt:
-
-                if (null != robot) {
-                    robot.setMovementSpeed(3);
-                }
-
-                break;
-
-            case R.id.control_obstacle_bt:
-
-                if (null != robot) {
-                    robot.queryObstacleDistanceData();
-                }
-
-                break;
-
-            case R.id.control_battery_bt:
-
-                if (null != robot) {
-                    robot.queryBatteryPercentage();
-                }
-
-                break;
-
-            case R.id.control_hardware_version_bt:
-
-                if (null != robot) {
-                    robot.queryRobotHardwareVersion();
-                }
-
-                break;
-
-            case R.id.control_go_forward_with_arg_bt:{
-
-                String distanceStr = distanceEt.getText().toString();
-                int distance = 0;
-                try {
-                    distance = Integer.parseInt(distanceStr);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(this, "Please enter a positive integer", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (null != robot) {
-                    robot.goForward(distance);
+                    new Schedule(robot, actionString);
                 }
 
                 break;
             }
-            case R.id.control_go_backward_with_arg_bt:{
-
-                String distanceStr = distanceEt.getText().toString();
-                int distance = 0;
-                try {
-                    distance = Integer.parseInt(distanceStr);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(this, "Please enter a positive integer", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (null != robot) {
-                    robot.goBackward(distance);
-                }
-
-                break;
-            }
-            case R.id.control_turn_left_with_arg_bt:{
-                String angleStr = angleEt.getText().toString();
-                int angle = 0;
-                try {
-                    angle = Integer.parseInt(angleStr);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(this, "Please enter a positive integer", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (null != robot) {
-                    robot.turnLeft(angle);
-                }
-
-                break;
-            }
-            case R.id.control_turn_right_with_arg_bt:{
-                String angleStr = angleEt.getText().toString();
-                int angle = 0;
-                try {
-                    angle = Integer.parseInt(angleStr);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(this, "Please enter a positive integer", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (null != robot) {
-                    robot.turnRight(angle);
-                }
-
-                break;
-            }
-            case R.id.control_sound_source_bt:
-
-                if (null != robot) {
-                    robot.querySoundSourceAngle();
-                }
-
-                break;
             default:
                 break;
 
