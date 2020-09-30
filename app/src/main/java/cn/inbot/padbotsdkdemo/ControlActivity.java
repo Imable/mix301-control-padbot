@@ -4,17 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import cn.inbot.padbotsdk.Robot;
 import cn.inbot.padbotsdk.RobotManager;
@@ -31,13 +25,8 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
 
     private TextView nameValueTv;
     private TextView connectStatusValueTv;
-    private TextView obstacleValueTv;
-    private TextView batteryValueTv;
-    private TextView hardwareVersionTv;
-    private TextView soundSourceTv;
 
-    private EditText distanceEt;
-    private EditText angleEt;
+    private EditText routeString;
 
 
     @Override
@@ -64,14 +53,7 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
         nameValueTv = (TextView) findViewById(R.id.control_name_value_tv);
         nameValueTv.setText(serialNumber);
 
-
-        obstacleValueTv = (TextView) findViewById(R.id.control_obstacle_tv);
-        batteryValueTv = (TextView) findViewById(R.id.control_battery_tv);
-        hardwareVersionTv = (TextView) findViewById(R.id.control_hardware_version_tv);
-        soundSourceTv = (TextView) findViewById(R.id.control_sound_source_tv);
-
-        distanceEt = (EditText) findViewById(R.id.control_move_distance_et2);
-        angleEt = (EditText) findViewById(R.id.control_turn_angle_et);
+        routeString = (EditText) findViewById(R.id.submit_route_text);
     }
 
     @Override
@@ -88,6 +70,7 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
      * Control the robot
      * @param view
      */
+
 
     public void onClick(View view) throws InterruptedException {
 
@@ -114,6 +97,54 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
 
                 break;
 
+            case R.id.control_forward_bt:
+                if (null != robot) {
+                    robot.goForward();
+                }
+                break;
+
+            case R.id.control_back_bt:
+                if (null != robot) {
+                    robot.goBackward();
+                }
+                break;
+
+            case R.id.control_left_bt:
+                if (null != robot) {
+                    robot.turnLeft();
+                }
+                break;
+
+            case R.id.control_right_bt:
+                if (null != robot) {
+                    robot.turnRight();
+                }
+                break;
+
+            case R.id.control_left_front_bt:
+                if (null != robot) {
+                    robot.goForwardLeft(4);
+                }
+                break;
+
+            case R.id.control_right_front_bt:
+                if (null != robot) {
+                    robot.goForwardRight(4);
+                }
+                break;
+
+            case R.id.control_left_back_bt:
+                if (null != robot) {
+                    robot.goBackwardLeft(4);
+                }
+                break;
+
+            case R.id.control_right_back_bt:
+                if (null != robot) {
+                    robot.goBackwardRight(4);
+                }
+                break;
+
             case R.id.control_stop_bt:
 
                 if (null != robot) {
@@ -121,321 +152,22 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
                 }
                 break;
 
-// Assignment 1
-            case R.id.control_forward_bt:
-
-                ScheduledExecutorService mover = Executors.newScheduledThreadPool(1);
-
-                ArrayList<Pair<Integer, Runnable>> schedule = new ArrayList<Pair<Integer, Runnable>>() {
-                    {
-                        add(
-                                new Pair<Integer, Runnable> (
-                                    1,
-                                    new Runnable() {
-                                        public void run() { robot.goForward(); }
-                                    }
-                                )
-                        );
-
-                        add(
-                                new Pair<Integer, Runnable> (
-                                        4,
-                                        new Runnable() {
-                                            public void run() { robot.goBackward(); }
-                                        }
-                                )
-                        );
-
-                        add(
-                                new Pair<Integer, Runnable> (
-                                        7,
-                                        new Runnable() {
-                                            public void run() { robot.turnLeft(); }
-                                        }
-                                )
-                        );
-                    }
-                };
-
-                final Runnable stop = new Runnable() {
-                    public void run() { robot.stop(); }
-                };
-
+            case R.id.take_a_walk:
                 if (null != robot) {
-                    for (Pair<Integer, Runnable> move : schedule) {
-                        Integer delay   = move.first;
-                        Runnable action = move.second;
-                        mover.schedule(stop, delay - 1, TimeUnit.SECONDS);
-                        mover.schedule(action, delay, TimeUnit.SECONDS);
-                    }
+                    new Schedule(robot, "f-2,b-4");
                 }
-
                 break;
 
-            case R.id.control_back_bt:
+            case R.id.submit_route_button: {
+
+                String route = routeString.getText().toString();
 
                 if (null != robot) {
-                    robot.goBackward();
-                }
-
-                break;
-
-            case R.id.control_left_bt:
-
-                if (null != robot) {
-                    robot.turnLeft();
-                }
-
-                break;
-
-            case R.id.control_right_bt:
-
-                if (null != robot) {
-                    robot.turnRight();
-                }
-
-                break;
-
-            case R.id.control_left_front_bt:
-
-                if (null != robot) {
-                    robot.goForwardLeft(4);
-                }
-
-                break;
-
-            case R.id.control_right_front_bt:
-
-                if (null != robot) {
-                    robot.goForwardRight(4);
-                }
-
-                break;
-
-            case R.id.control_left_back_bt:
-
-                if (null != robot) {
-                    robot.goBackwardLeft(4);
-                }
-
-                break;
-
-            case R.id.control_right_back_bt:
-
-                if (null != robot) {
-                    robot.goBackwardRight(4);
-                }
-
-                break;
-
-            case R.id.control_head_rise_bt:
-
-                if (null != robot) {
-                    robot.headRise();
-                }
-
-                break;
-
-            case R.id.control_head_down_bt:
-
-                if (null != robot) {
-                    robot.headDown();
-                }
-
-                break;
-
-            case R.id.control_go_charging_bt:
-
-                if (null != robot) {
-                    robot.goCharging();
-                }
-
-                break;
-
-            case R.id.control_stop_charging_bt:
-
-                if (null != robot) {
-                    robot.stopCharging();
-                }
-
-                break;
-
-
-            case R.id.control_obstacle_on_bt:
-
-                if (null != robot) {
-                    robot.turnOnObstacleDetection();
-                }
-
-                break;
-
-            case R.id.control_obstacle_off_bt:
-
-                if (null != robot) {
-                    robot.turnOffObstacleDetection();
-                }
-
-                break;
-
-            case R.id.control_1st_speed_bt:
-
-                if (null != robot) {
-                    robot.setMovementSpeed(1);
-                }
-
-                break;
-
-            case R.id.control_3rd_speed_bt:
-
-                if (null != robot) {
-                    robot.setMovementSpeed(3);
-                }
-
-                break;
-
-            case R.id.control_obstacle_bt:
-
-                if (null != robot) {
-                    robot.queryObstacleDistanceData();
-                }
-
-                break;
-
-            case R.id.control_battery_bt:
-
-                if (null != robot) {
-                    robot.queryBatteryPercentage();
-                }
-
-                break;
-
-            case R.id.control_hardware_version_bt:
-
-                if (null != robot) {
-                    robot.queryRobotHardwareVersion();
-                }
-
-                break;
-
-                /* ========================================================
-                Ass.2= 2. Input route with the textfield.
-                Goal here: text input to a list of actions.
-                    if (null != robot) {
-                    robot.goBackward();
-                    }
-                    if (null != robot) {
-                    robot.turnLeft();
-                    }
-                    if (null != robot) {
-                    robot.turnRight();
-                    }
-
-                    Read string and parse,
-                    1. get the input= Input field with submit button
-                    2. Fetch text to a variable -> string
-                    Ex. "F100, b100, lf45" ***
-                    3. String to actions: split string, seperate by comma and remove spaces
-                    4. Put meaning to the letters (f=forward)
-                    (4.5- class action(function, delay, args?) -> robot.goForward)
-                    5. ["f100", "b100",..] Find the chars and numbers -
-                        5.5- pair them together
-                    ------- above is the goal for monday ------------
-                    6. List of pairs?
-                    7. for action in actions -> queue(action).
-
-                =============================================================== */
-
-            //If the button with this id is pressed, run this code
-            case R.id.submit_route_button:{
-                //text to variable routeString as a String
-                String routeString = distanceEt.getText().toString();
-                //Clean up string, remove whitespaces and split by commas.
-                String[] routeDescription= routeString.trim().split(",");
-                //Create pairs? Select first 1-2 characters if letters
-                //
-                //Need parseInt() to make the integer parts of the strings proper ints for values
-
-                //Put meaning to the letters (f=forward)
-
-
-            }
-
-            case R.id.control_go_forward_with_arg_bt:{
-                String distanceStr = distanceEt.getText().toString();
-                int distance = 0;
-                try {
-                    distance = Integer.parseInt(distanceStr);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(this, "Please enter a positive integer", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (null != robot) {
-                    robot.goForward(distance);
+                    new Schedule(robot, route);
                 }
 
                 break;
             }
-            case R.id.control_go_backward_with_arg_bt:{
-
-                String distanceStr = distanceEt.getText().toString();
-                int distance = 0;
-                try {
-                    distance = Integer.parseInt(distanceStr);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(this, "Please enter a positive integer", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (null != robot) {
-                    robot.goBackward(distance);
-                }
-
-                break;
-            }
-            case R.id.control_turn_left_with_arg_bt:{
-                String angleStr = angleEt.getText().toString();
-                int angle = 0;
-                try {
-                    angle = Integer.parseInt(angleStr);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(this, "Please enter a positive integer", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (null != robot) {
-                    robot.turnLeft(angle);
-                }
-
-                break;
-            }
-            case R.id.control_turn_right_with_arg_bt:{
-                String angleStr = angleEt.getText().toString();
-                int angle = 0;
-                try {
-                    angle = Integer.parseInt(angleStr);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(this, "Please enter a positive integer", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (null != robot) {
-                    robot.turnRight(angle);
-                }
-
-                break;
-            }
-            case R.id.control_sound_source_bt:
-
-                if (null != robot) {
-                    robot.querySoundSourceAngle();
-                }
-
-                break;
             default:
                 break;
 
@@ -486,26 +218,18 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
     @Override
     public void onReceivedRobotObstacleDistanceData(final ObstacleDistanceData obstacleDistanceData) {
 
-        obstacleValueTv.setText("result:" + obstacleDistanceData.getFirstDistance() + ","
-                + obstacleDistanceData.getSecondDistance() + ","
-                + obstacleDistanceData.getThirdDistance() + ","
-                + obstacleDistanceData.getFourthDistance() + ","
-                + obstacleDistanceData.getFifthDistance());
     }
 
     @Override
     public void onReceivedRobotBatteryPercentage(final int batteryPercentage) {
-        batteryValueTv.setText("result:" + batteryPercentage);
     }
 
     @Override
     public void onReceivedRobotHardwareVersion(final int version) {
-        hardwareVersionTv.setText("result:" + version);
     }
 
     @Override
     public void onReceivedRobotSerialNumber(String serialNumber) {
-        nameValueTv.setText(serialNumber);
     }
 
     @Override
@@ -515,8 +239,5 @@ public class ControlActivity extends AppCompatActivity implements RobotConnectio
 
     @Override
     public void onReceivedSoundSourceAngle(int angle) {
-
-        soundSourceTv.setText("" + angle);
-
     }
 }
